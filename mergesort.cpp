@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
+//КОМЕНТАР
+//коМЕНТАР
 using namespace std;
 void QuickSort(int *arr, unsigned int N, int L, int R, int &c_p, int &m_p);
 void merge(int *arr, int l, int m, int r, int &c, int &m_p);
