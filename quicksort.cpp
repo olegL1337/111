@@ -6,30 +6,29 @@ void out(int *mass, int n)
 	for (int i = 0; i<n; cout << mass[i] << ends, i++);
 	cout << endl;
 }
-int parsition(int *mass, int start, int end)
-{
-	int pivot = mass[end / 2];
-	int pindex = start;
-	for (int i = start; i<end; i++)
-	{
-		if (mass[i] <= pivot)
-		{
-			swap(mass[i], mass[pindex]);
-			pindex++;
-		}
-	}
-	swap(mass[pindex], mass[end]);
-	return pindex;
-}
 void quicksort(int *mass, int start, int end)
 {
-	if (start<end)
-	{
-		int pindex = parsition(mass, start, end);
-		quicksort(mass, start, pindex - 1);
-		quicksort(mass, pindex + 1, end);
-	}
+	int i = start, j = end;
+	int tmp;
+	int pivot = mass[(start + end) / 2];
 
+	while (i <= j) {
+		while (mass[i] < pivot)
+			i++;
+		while (mass[j] > pivot)
+			j--;
+		if (i <= j) {
+			tmp = mass[i];
+			mass[i] = mass[j];
+			mass[j] = tmp;
+			i++;
+			j--;
+		}
+	};
+	if (start < j)
+		quicksort(mass, start, j);
+	if (i < end)
+		quicksort(mass, i, end);
 }
 int main()
 {
