@@ -1,9 +1,8 @@
-#include <iostream>
+nclude <iostream>
 #include <cstdlib>
 #include <time.h>
-//КОМЕНТАР
-//коМЕНТАР
 using namespace std;
+void QuickSort(int *arr, unsigned int N, int L, int R, int &c_p, int &m_p);
 void merge(int *arr, int l, int m, int r, int &c, int &m_p);
 void mergeSort(int *arr, int l, int r, int &c_p, int &m_p);
 int main() {
@@ -11,23 +10,61 @@ int main() {
 	int n;
 	cout << "vveditb rosmir";
 	cin >> n;
-	//srand(time(0));
+	srand(time(0));
 	int *arr = new int[n];
 	for (int i = 0; i < n; arr[i] = rand() % 100 + 1, i++)
 		;
 
 	for (int i = 0; i < n; cout << arr[i] << " ", i++)
 		;
+	cout << endl;
+	cout << "1: швидке " << endl;
+	cout << "2: злиттям" << endl;
+	int k;
+	cout << "k:";
+	cin >> k;
 	int c_p = 0, m_p = 0;
 	int a = clock();
-	mergeSort(arr, 0, n - 1, c_p, m_p);
+	if (k > 0 && k <= 7) {
+		switch (k) {
+		case 1:
+			QuickSort(arr, n, 0, n - 1, c_p, m_p);
+			break;
+		case 2:
+			mergeSort(arr, 0, n - 1, c_p, m_p);
+			break;
+		}
+	}
 	for (int i = 0; i < n; cout << arr[i] << " ", i++)
 		;
-	cout << endl << "m= " << m_p << " c= " << c_p;
+	//cout << endl << "m= " << m_p << " c= " << c_p;
 	cout << endl;
-	cout << "час";
+	//cout << "час";
 	cout << clock() - a << endl;
 	return 0;
+}
+void QuickSort(int *arr, unsigned int N, int L, int R, int &c_p, int &m_p) {
+	int i = L, j = R;
+	int x = arr[(R + L) / 2];
+	do {
+		while (arr[i] < x) {
+			i++;
+			m_p++;
+		}
+		while (x < arr[j]) {
+			j--;
+			m_p++;
+		}
+		if (i <= j) {
+			swap(arr[i++], arr[j--]);
+			c_p++;
+			m_p++;
+		}
+	} while (i < j);
+	if (L < j)
+		QuickSort(arr, N, L, j, c_p, m_p);
+	if (i < R)
+		QuickSort(arr, N, i, R, c_p, m_p);
 }
 void merge(int *arr, int l, int m, int r, int &c, int &m_p) {
 	int i, j, k;
@@ -76,3 +113,4 @@ void mergeSort(int *arr, int l, int r, int &c_p, int &m_p) {
 		merge(arr, l, m, r, c_p, m_p);
 	}
 }
+
